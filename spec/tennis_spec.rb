@@ -69,4 +69,22 @@ describe Tennis do
       expect(tennis.score).to eq('Advantage Player Two')
     end
   end
+
+  context 'when advantage' do
+    it 'gives a score of Deuce if Player One loses their advantage' do
+      4.times do
+        tennis.win_point(:player_one)
+        tennis.win_point(:player_two)
+      end
+      expect(tennis.score).to eq('Deuce')
+    end
+
+    it 'gives a score of Deuce if Player Two loses their advantage' do
+      4.times do
+        tennis.win_point(:player_two)
+        tennis.win_point(:player_one)
+      end
+      expect(tennis.score).to eq('Deuce')
+    end
+  end
 end
