@@ -25,6 +25,11 @@ describe Tennis do
 
       expect(tennis.score).to eq('Fourty-Love')
     end
+
+    it 'gives a win to Player One when they win four points' do
+      4.times { tennis.win_point(:player_one) }
+      expect(tennis.score).to eq('Player One wins!')
+    end
   end
 
   context 'when Player Two only scores' do
@@ -44,6 +49,11 @@ describe Tennis do
       3.times { tennis.win_point(:player_two) }
 
       expect(tennis.score).to eq('Love-Fourty')
+    end
+
+    it 'gives a win to Player Two when they win four points' do
+      4.times { tennis.win_point(:player_two) }
+      expect(tennis.score).to eq('Player Two wins!')
     end
   end
 
@@ -85,6 +95,24 @@ describe Tennis do
         tennis.win_point(:player_one)
       end
       expect(tennis.score).to eq('Deuce')
+    end
+
+    it 'gives a win to Player One if they win a point from advantage' do
+      3.times do
+        tennis.win_point(:player_one)
+        tennis.win_point(:player_two)
+      end
+      2.times { tennis.win_point(:player_one) }
+      expect(tennis.score).to eq('Player One wins!')
+    end
+
+    it 'gives a win to Player two if they win a point from advantage' do
+      3.times do
+        tennis.win_point(:player_one)
+        tennis.win_point(:player_two)
+      end
+      2.times { tennis.win_point(:player_two) }
+      expect(tennis.score).to eq('Player Two wins!')
     end
   end
 end

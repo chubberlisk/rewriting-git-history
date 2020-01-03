@@ -16,6 +16,7 @@ class Tennis
   def score
     return 'Deuce' if deuce?
     return output_advantage if advantage?
+    return output_winner if winner?
 
     "#{POINTS_TO_SCORE[@player_one_points]}-#{POINTS_TO_SCORE[@player_two_points]}"
   end
@@ -46,7 +47,18 @@ class Tennis
     player_one?(point_winner) && @player_two_points == 4
   end
 
+  def winner?
+    (@player_one_points == 4 && @player_two_points <= 2) ||
+      (@player_one_points == 5 && @player_two_points == 3) ||
+      (@player_two_points == 4 && @player_one_points <= 2) ||
+      (@player_two_points == 5 && @player_one_points == 3)
+  end
+
   def output_advantage
     @player_one_points == 4 ? 'Advantage Player One' : 'Advantage Player Two'
+  end
+
+  def output_winner
+    @player_one_points >= 4 ? 'Player One wins!' : 'Player Two wins!'
   end
 end
